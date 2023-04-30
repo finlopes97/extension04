@@ -59,6 +59,8 @@
 // [ 1 2 ] * [ 1 2 3 ] = [ (1*1 + 1*4)  (1*2 + 2*5)  (1*3 + 2*6) ] = [  9 12 15 ]  
 // [ 3 4 ]   [ 4 5 6 ]   [ (3*1 + 4*4)  (3*2 + 4*5)  (3*3 + 4*6) ]   [ 19 26 33 ]
 //
+// 0 * 0 - 0 * 1 - 0 * 2 
+//
 // The inner dimensions of the matricies must be the same and the
 // result will be a matrix of dimension equal to the outer dimensions. 
 // e.g. the result of matrix multiplication of an m x n matrix and n x p matrix 
@@ -103,7 +105,7 @@ void matrix_sum(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t *matrix_b, 
     }
 }
 
-void matrix_add(int16_t *matrix_a, uint8_t *dimensions_of_a, uint8_t scalar, int16_t *result_matrix) {
+void matrix_add(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t scalar, int16_t *result_matrix) {
     for (uint8_t i = 0; i < dimensions_of_a[0]; i++) {
         for (uint8_t j = 0; j < dimensions_of_a[1]; j++) {
             result_matrix[i*dimensions_of_a[1]+j] = matrix_a[i*dimensions_of_a[1]+j] + scalar;
@@ -111,19 +113,26 @@ void matrix_add(int16_t *matrix_a, uint8_t *dimensions_of_a, uint8_t scalar, int
     }
 }
 
-void matrix_scale(int16_t *matrix_a, uint8_t *dimensions_of_a, uint8_t mult_scalar, int16_t *result_matrix) {
+void matrix_scale(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t mult_scalar, int16_t *result_matrix) {
     for (uint8_t i = 0; i < dimensions_of_a[0]; i++) {
         for (uint8_t j = 0; j < dimensions_of_a[1]; j++) {
             result_matrix[i*dimensions_of_a[1]+j] = matrix_a[i*dimensions_of_a[1]+j] * mult_scalar;
         }
     }
 }
-//
-// void matrix_sum(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t *matrix_b, int16_t *result_matrix) {
-//     for (uint8_t i = 0; i < dimensions_of_a[0]; i++) {
-//         for (uint8_t j = 0; j < dimensions_of_a[1]; j++) {
-//             result_matrix[i*dimensions_of_a[1]+j] = matrix_a[i*dimensions_of_a[1]+j] + matrix_b[i*dimensions_of_a[1]+j];
-//         }
-//     }
-// }
+
+void matrix_mul(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t *matrix_b, uint8_t *dimensions_of_b, int16_t *result_matrix) {
+    if (dimensions_of_a[1] != dimensions_of_b[0]) {
+        printf("Get fucked");
+        return;
+    }
+
+    for (uint8_t i = 0; i < dimensions_of_a[0]; i++) {
+        for (uint8_t j = 0; j < dimensions_of_b[1]; j++) {
+            for (uint8_t k = 0; k < dimensions_of_a[1]; k++) {
+                result_matrix[i*dimensions_of_b[1]+j] += matrix_a[i*dimensions_of_a[1]+k] * matrix_b[k*dimensions_of_b[1]+j];
+            }
+        }
+    }
+}
 // Write your code for Ex E4.0 above this line.

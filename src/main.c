@@ -75,14 +75,7 @@ int main(void) {
     // wait for keypress
     while(!serial_bytes_available());
 
-    int16_t matrix_z[2][2] = {
-        {1, 2},
-        {3, 4}
-    };
-
-    uint8_t scalar = 7;
-
-    matrix_scale(matrix_z, dim_2x2, scalar, result);
+    matrix_mul(a, dim_2x2, b, dim_2x3, result);
     matrix_print(result, dim_2x2);
 
     // print matrix A
