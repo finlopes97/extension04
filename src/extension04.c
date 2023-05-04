@@ -123,7 +123,7 @@ void matrix_scale(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t mult_scal
 
 void matrix_mul(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t *matrix_b, uint8_t *dimensions_of_b, int16_t *result_matrix) {
     if (dimensions_of_a[1] != dimensions_of_b[0]) {
-        printf("Get fucked");
+        printf("get fucked");
         return;
     }
 

@@ -75,8 +75,8 @@ int main(void) {
     // wait for keypress
     while(!serial_bytes_available());
 
-    matrix_mul(a, dim_2x2, b, dim_2x3, result);
-    matrix_print(result, dim_2x2);
+    // matrix_mul(a, dim_2x2, b, dim_2x3, result);
+    // matrix_print(result, dim_2x2);
 
     // print matrix A
     printf("A =\n");
