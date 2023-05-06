@@ -122,15 +122,29 @@ void matrix_scale(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t mult_scal
 }
 
 void matrix_mul(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t *matrix_b, uint8_t *dimensions_of_b, int16_t *result_matrix) {
-    if (dimensions_of_a[1] != dimensions_of_b[0]) {
-        printf("get fucked");
+
+    // Give everyone a letter, letters make everyone feel better
+    uint8_t m, n, p, q, i, j, k;
+
+    // Columns in first matrix need to be equal to rows in second matrix
+    // Tuples are in order of rows, cols
+
+    m = dimensions_of_a[0]; // Rows of matrix a
+    n = dimensions_of_a[1]; // Columns of matrix a
+    p = dimensions_of_b[0]; // Rows of matrix b
+    q = dimensions_of_b[1]; // Columns of matrix b
+
+    // Check to make sure we can actually math this shit
+    if (n != p) {
+        printf("Error has occured, matrices cannot be multiplied if the rows of the first matrice are not equal to the columns of the second.\nYou can (not) math this shit.");
         return;
     }
 
-    for (uint8_t i = 0; i < dimensions_of_a[0]; i++) {
-        for (uint8_t j = 0; j < dimensions_of_b[1]; j++) {
-            for (uint8_t k = 0; k < dimensions_of_a[1]; k++) {
-                result_matrix[i*dimensions_of_b[1]+j] += matrix_a[i*dimensions_of_a[1]+k] * matrix_b[k*dimensions_of_b[1]+j];
+    for (i = 0; i < m; i++) { // For every row of matrix a ->
+        for (j = 0; j < q; j++) { // For every column of matrix b ->
+            result_matrix[i][j] = 0; // Clear existing values at address ij of result matrix
+            for (k = 0; k < p; k++) { // For every row in matrix b - >
+                result_matrix[i][j] += a[i][k] * b[k][j];
             }
         }
     }
