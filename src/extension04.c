@@ -142,7 +142,7 @@ void matrix_mul(int16_t *matrix_a, uint8_t *dimensions_of_a, int16_t *matrix_b, 
 
     for (i = 0; i < m; i++) { // For every row of matrix a ->
         for (j = 0; j < q; j++) { // For every column of matrix b ->
-            result_matrix[i*q+j] = 0; // Clear existing values at address ij of result matrix
+            // result_matrix[i*q+j] = 0; // Clear existing values at address ij of result matrix
             for (k = 0; k < p; k++) { // For every row in matrix b - >
                 result_matrix[i*q+j] += matrix_a[i*n+k] * matrix_b[k*p+j];
             }
